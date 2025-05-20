@@ -1,0 +1,1 @@
+# Proyecto-SegFormer-Analitica-de-Datos
