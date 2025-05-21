@@ -7,25 +7,35 @@ import time
 from transformers import SegformerImageProcessor, SegformerForSemanticSegmentation
 from PIL import Image
 
-# Cargar modelo y procesador
 def load_model():
-    processor = SegformerImageProcessor.from_pretrained("nvidia/segformer-b0-finetuned-ade-512-512")
-    model = SegformerForSemanticSegmentation.from_pretrained("nvidia/segformer-b0-finetuned-ade-512-512")
-    return processor, model
+    # Determinar el dispositivo disponible
+    device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+
+    # Cargar el procesador y el modelo preentrenado
+    processor = SegformerImageProcessor.from_pretrained("nvidia/segformer-b4-finetuned-ade-512-512")
+    model = SegformerForSemanticSegmentation.from_pretrained("nvidia/segformer-b4-finetuned-ade-512-512")
+
+    # Mover el modelo al dispositivo adecuado
+    model.to(device)
+
+    return processor, model, device
 
 # Obtener clases del modelo
 def get_classes(model):
     return [model.config.id2label[i] for i in range(len(model.config.id2label))]
 
 # Segmentar imagen (PIL)
-def segment_image(image, processor, model):
-    inputs = processor(images=image, return_tensors="pt")
+def segment_image(image, processor, model, device):
+    # Procesar imagen y mover al dispositivo
+    inputs = processor(images=image, return_tensors="pt").to(device)
+
     start = time.time()
     with torch.no_grad():
         outputs = model(**inputs)
         logits = outputs.logits
         prediction = logits.argmax(dim=1)[0]
     end = time.time()
+
     return prediction.cpu().numpy(), end - start
 
 # Segmentar frame (cv2 image)

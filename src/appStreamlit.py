@@ -18,7 +18,7 @@ st.set_page_config(page_title="Demo SegFormer", layout="wide")
 def get_model():
     return load_model()
 
-processor, model = get_model()
+processor, model, device = get_model()
 classes = get_classes(model)
 
 def page_intro():
@@ -110,7 +110,7 @@ def page_inference():
             st.image(image, caption="Imagen cargada")
 
             with st.spinner("Segmentando imagen..."):
-                mask, duration = segment_image(image, processor, model)
+                mask, duration = segment_image(image, processor, model, device)
 
             st.markdown(f"**Tiempo de inferencia:** {duration:.3f} segundos")
             mostrar_segmentacion_con_leyenda(image, mask, classes, st)
