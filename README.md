@@ -25,14 +25,13 @@
         uv init
         ```
     - Install dependencies:
-  ```bash
-  uv pip install `
-    --extra-index-url https://download.pytorch.org/whl/cu118 `
-    -r requirements.txt
-```
+        ```bash
+        uv add --extra-index-url https://download.pytorch.org/whl/cu118
+            -r requirements.txt
+        ```
     - Run the app
         ```
-        uv run streamlit run src/Homepage.py
+        uv run streamlit run src/appStreamlit.py
         ```
     </details>
 
@@ -52,7 +51,7 @@
         ```
     - Install dependencies
         ```
-        pip install -r requirements.txt
+        pip install --extra-index-url https://download.pytorch.org/whl/cu118 -r requirements.txt
         ```
     - Run the app
         ```
