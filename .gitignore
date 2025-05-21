@@ -1,4 +1,8 @@
-uv.lock
-.venv/
-src/__pycache__/
+# Byte-compiled / optimized / DLL files
 __pycache__/
+*.py[cod]
+*$py.class
+
+.venv/
+uv.lock
+src/__pycache__/
