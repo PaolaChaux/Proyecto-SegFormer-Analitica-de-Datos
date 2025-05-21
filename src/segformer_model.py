@@ -39,9 +39,9 @@ def segment_image(image, processor, model, device):
     return prediction.cpu().numpy(), end - start
 
 # Segmentar frame (cv2 image)
-def segment_frame(frame, processor, model):
+def segment_frame(frame, processor, model, device):
     img = Image.fromarray(cv2.cvtColor(frame, cv2.COLOR_BGR2RGB))
-    return segment_image(img, processor, model)
+    return segment_image(img, processor, model, device)
 
 # Colorear máscara segmentada
 def colorize_mask(mask, classes):
