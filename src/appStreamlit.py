@@ -28,10 +28,13 @@ def page_intro():
     ### ¿Qué es la segmentación semántica?
 
     La segmentación semántica es una tarea fundamental en visión por computadora que consiste en clasificar cada píxel de una imagen asignándole una etiqueta que indica el objeto o categoría a la que pertenece.  
-    Esto permite entender la escena a nivel granular, diferenciando objetos y regiones con significado semántico.
+    Esto permite entender la escena a nivel granular, diferenciando objetos y regiones con significado semántico.""")
+    
+    st.image("https://github.com/NVlabs/SegFormer/blob/master/resources/seg_demo.gif?raw=true",
+         caption="Segmentación Semántica", width=1000)
 
-    st.image("https://github.com/NVlabs/SegFormer/blob/master/resources/seg_demo.gif", caption="Segmentacion Semantica", use_column_width=True)
 
+    st.markdown("""
     ### Entradas y salidas
 
     - **Entrada:** Imagen a color en formato RGB, con resolución arbitraria.  
@@ -63,9 +66,10 @@ def page_architecture():
     ## Introducción
 
     SegFormer propone un diseño simple pero eficiente para segmentación semántica basado en Transformers, que combina un encoder jerárquico con un decoder ligero y sin uso de positional embeddings, permitiendo alta precisión y velocidad.
-
-    st.image("https://github.com/PaolaChaux/Proyecto-SegFormer-Analitica-de-Datos/blob/main/data/images/ARQUITECTURAIMAGEN.png", caption="Segmentacion Semantica", use_column_width=True)
+    """)
+    st.image("https://github.com/PaolaChaux/Proyecto-SegFormer-Analitica-de-Datos/blob/main/data/images/ARQUITECTURAIMAGEN.png?raw=true", caption="Segmentacion Semantica", width=1000)
     
+    st.markdown("""
     ## Encoder: Mix Transformer (MiT)
 
     - El encoder es un Transformer jerárquico con múltiples etapas, inspirado en arquitecturas de visión como Swin Transformer pero con simplificaciones.
