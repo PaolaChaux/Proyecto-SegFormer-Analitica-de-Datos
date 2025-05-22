@@ -26,8 +26,7 @@
         ```
     - Install dependencies:
         ```bash
-        uv add --extra-index-url https://download.pytorch.org/whl/cu118
-            -r requirements.txt
+        uv pip install --extra-index-url https://download.pytorch.org/whl/cu118 -r requirements.txt
         ```
     - Run the app
         ```
