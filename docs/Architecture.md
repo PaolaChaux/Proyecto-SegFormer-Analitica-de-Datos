@@ -1,6 +1,6 @@
 # Arquitectura de SegFormer
 
-![Arquitectura de SegFormer](data/images/ARQUITECTURAIMAGEN.png)
+![Arquitectura de SegFormer](Proyecto-SegFormer-Analitica-de-Datos/images/data/images/ARQUITECTURAIMAGEN.png)
 
 
 ## 1. Encoder (Codificador)
