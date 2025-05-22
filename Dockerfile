@@ -1,26 +1,26 @@
-# Usar una imagen base con Python 3.12 y uv preinstalado
+# 1) Imagen base con uv y Python 3.12
 FROM ghcr.io/astral-sh/uv:python3.12-bookworm-slim
 
-# Establecer el directorio de trabajo
+# 2) Directorio de trabajo
 WORKDIR /app
 
-# Habilitar la compilación de bytecode para mejorar el rendimiento
-ENV UV_COMPILE_BYTECODE=1
-
-# Copiar los archivos de configuración del proyecto
-COPY pyproject.toml uv.lock ./
-
-# Instalar las dependencias del proyecto sin incluir el código fuente
-RUN uv sync --frozen --no-install-project --no-dev
-
-# Copiar el código fuente del proyecto
+# 3) Copiar solo lo que necesitas (data/docs están en .dockerignore)
 COPY . .
 
-# Instalar las dependencias del proyecto con el código fuente incluido
-RUN uv sync --frozen --no-dev
+# 4) Bytecode optimizado
+ENV UV_COMPILE_BYTECODE=1
 
-# Añadir el entorno virtual al PATH
-ENV PATH="/app/.venv/bin:$PATH"
+# 5) Actualizar pip y usar uv para instalar
+RUN pip install --upgrade pip
+RUN uv run pip install \
+      --extra-index-url https://download.pytorch.org/whl/cu118 \
+      -r requirements.txt
 
-# Establecer el punto de entrada para ejecutar el archivo Homepage.py
-CMD ["uv", "run", "streamlit", "run", "src/appStreamlit.py.py", "--server.address=0.0.0.0", "--server.port=8080"]
+# 6) Exponer el puerto que Cloud Run usará
+EXPOSE 8080
+
+# 7) Comando para arrancar Streamlit apuntando al script correcto
+CMD streamlit run src/appStreamlit.py \
+    --server.port $PORT \
+    --server.address 0.0.0.0
+
