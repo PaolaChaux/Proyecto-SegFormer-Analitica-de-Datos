@@ -11,7 +11,8 @@ SegFormer is a cutting-edge semantic segmentation framework developed by NVIDIA,
 ### Segmentation
 
 Below is an example of semantic segmentation using a pre-trained SegFormer model:
-![Segmentation Example](data/images/Figure_1.png)
+
+![Segmentation Example](data/images/001_segformer_img.png)
 
 
 ###  How to use locally
