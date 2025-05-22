@@ -63,6 +63,7 @@ El modelo espera imágenes RGB (tres canales) que se convierten en tensores medi
 ```python
 processor(images=image, return_tensors="pt")
 
+```
 
 ## Salidas del Modelo
 
