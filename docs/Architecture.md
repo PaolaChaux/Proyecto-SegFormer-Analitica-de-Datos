@@ -3,87 +3,89 @@
 
 ![Arquitectura de SegFormer](https://github.com/PaolaChaux/Proyecto-SegFormer-Analitica-de-Datos/blob/main/data/images/ARQUITECTURAIMAGEN.png)
 
-# Arquitectura de SegFormer
-
 SegFormer es un modelo de segmentación semántica que combina la eficiencia de los Transformers con un decodificador ligero basado en MLP. Su arquitectura se centra en dos bloques principales: un codificador jerárquico (MiT) y un decodificador All-MLP.
 
 ---
+# SegFormer Architecture
 
-## 1. Encoder (Codificador - MiT: Mix Transformer)
-
-El encoder de SegFormer actúa como el backbone del modelo. Está diseñado como un Transformer jerárquico que produce representaciones multi-escala, lo cual es esencial para la segmentación semántica.
-
-### Características clave:
-
-- **Jerarquía de niveles**: genera características en múltiples resoluciones: `H/4`, `H/8`, `H/16`, `H/32`.
-- **Patch Embedding con solapamiento**: a diferencia de ViT, los parches no son independientes. Se usa convolución con solapamiento para preservar continuidad espacial.
-- **Sin Positional Encoding**: en lugar de embeddings posicionales, utiliza una convolución 3x3 dentro de cada FFN para capturar ubicación relativa.
-- **Efficient Self-Attention**: reduce la secuencia con una tasa de compresión para disminuir la complejidad de atención de $O(N^2)$ a $O(N^2/R)$.
-
-### Flujo:
-
-1. **Imagen de entrada**: tamaño `H x W x 3`
-2. **Se divide en parches solapados** (por ejemplo, `4x4`)
-3. **Pasan por 4 etapas de bloques Transformer**
-4. **Se generan 4 mapas de características** en diferentes resoluciones (`S1` a `S4`)
+SegFormer is a semantic segmentation model that combines the efficiency of Transformers with a lightweight MLP-based decoder. Its architecture is centered around two main blocks: a hierarchical Transformer encoder (MiT) and an All-MLP decoder.
 
 ---
 
-## 2. Decoder (Decodificador All-MLP)
+## 1. Encoder (MiT: Mix Transformer)
 
-El decodificador de SegFormer es extremadamente simple. No usa convoluciones ni estructuras pesadas como ASPP. Solo MLPs.
+The encoder in SegFormer serves as the backbone of the model. It is designed as a hierarchical Transformer that produces multi-scale feature representations, which is essential for semantic segmentation.
 
-### Flujo del decoder:
+### Key Features:
 
-1. Cada una de las 4 salidas del encoder pasa por un **MLP** para unificar dimensiones de canal.
-2. Se **upsamplean** todas a la misma resolución $H/4 \times W/4$.
-3. Se **concatenan** las características.
-4. Una **MLP final** predice un tensor de tamaño:
+- **Hierarchical levels**: Generates feature maps at multiple resolutions: `H/4`, `H/8`, `H/16`, `H/32`.
+- **Overlapping Patch Embedding**: Unlike ViT, the patches are overlapping and processed via convolutions to preserve local continuity.
+- **No Positional Encoding**: Instead of fixed positional embeddings, a 3x3 convolution inside each FFN captures relative spatial information.
+- **Efficient Self-Attention**: Reduces attention complexity from $O(N^2)$ to $O(N^2/R)$ using sequence reduction.
+
+### Encoder Flow:
+
+1. **Input image**: Size `H x W x 3`
+2. **Divided into overlapping patches** (e.g., `4x4`)
+3. **Passed through 4 Transformer stages**
+4. **Produces 4 feature maps** at different resolutions (`S1` to `S4`)
+
+---
+
+## 2. Decoder (All-MLP)
+
+The decoder in SegFormer is extremely simple. It avoids heavy designs like ASPP or convolutional layers and uses only MLPs.
+
+### Decoder Flow:
+
+1. Each of the 4 encoder outputs passes through an **MLP** to unify the channel dimensions.
+2. All feature maps are **upsampled** to the same resolution: $H/4 \times W/4$.
+3. They are **concatenated** into a single tensor.
+4. A final **MLP** predicts a tensor of shape:
 
 $$
 \frac{H}{4} \times \frac{W}{4} \times N_{cls}
 $$
 
-Donde $N_{cls}$ es el número de clases posibles.
+Where $N_{cls}$ is the number of segmentation classes.
 
-5. Se aplica `argmax` sobre la dimensión de clases para obtener la máscara final:
+5. `argmax` is applied along the class dimension to obtain the segmentation mask:
 
 $$
 \frac{H}{4} \times \frac{W}{4}
 $$
 
-Esta máscara puede luego interpolarse a $H \times W$ para que coincida con el tamaño original de la imagen.
+This mask can be upsampled back to the original image resolution $H \times W$ for visualization or post-processing.
 
 ---
 
-## Entradas del Modelo
+## Model Input
 
-El modelo espera imágenes RGB (tres canales) que se convierten en tensores mediante el procesador `SegformerImageProcessor`.
+The model expects RGB images (3 channels) that are converted into tensors using the `SegformerImageProcessor`.
 
 ```python
 processor(images=image, return_tensors="pt")
-
 ```
+## Model Output
 
-## Salidas del Modelo
-
-- **Logits**: tensor de tamaño `B x N_cls x H/4 x W/4` (donde B es el batch size).
-- **Máscara de segmentación**: después de `argmax`, se obtiene una máscara `H/4 x W/4`.
-- **Tiempo de inferencia**: muy competitivo, por ejemplo, SegFormer-B0 alcanza hasta 48 FPS.
-
----
-
-## Ventajas de la Arquitectura de SegFormer
-
-- **No usa Positional Embedding**: evita el problema de interpolación cuando la resolución cambia.
-- **Más eficiente y ligero** que arquitecturas como SETR y DeepLabv3+.
-- **Mayor robustez** ante perturbaciones (ej. ruido, clima, compresión JPEG).
-- **Backbone jerárquico (MiT)** captura detalles locales y contexto global.
-- **Decoder simplificado** con MLPs que reduce drásticamente el costo computacional.
-- **Mejor relación velocidad-precisión** que otros modelos basados en Transformers.
+- **Logits**: A tensor of shape `B x N_cls x H/4 x W/4` (where B is the batch size).
+- **Segmentation mask**: After `argmax`, a mask of shape `H/4 x W/4` is obtained.
+- **Inference time**: Highly optimized. For example, SegFormer-B0 can reach up to 48 FPS.
 
 ---
 
-## Referencia
+## Advantages of the SegFormer Architecture
+
+- **No Positional Embedding**: Avoids the need to interpolate positional encodings when input size changes.
+- **More efficient and lightweight** than architectures like SETR and DeepLabv3+.
+- **Stronger robustness** to common corruptions (e.g., noise, weather, JPEG artifacts).
+- **Hierarchical Transformer Backbone (MiT)** captures both local details and global context.
+- **Simplified decoder** with only MLPs reduces computational cost.
+- **Better speed-accuracy trade-off** than other Transformer-based models.
+
+---
+
+## Reference
 
 Xie, E., Wang, W., Yu, Z., Anandkumar, A., Alvarez, J. M., & Luo, P. (2021). **SegFormer: Simple and Efficient Design for Semantic Segmentation with Transformers**. _arXiv preprint arXiv:2105.15203_.
+
