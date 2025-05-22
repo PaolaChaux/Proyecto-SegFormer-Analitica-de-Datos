@@ -1,6 +1,20 @@
-# Proyecto-SegFormer-Analitica-de-Datos
+<p align="center">
+    <img src="https://readme-typing-svg.herokuapp.com?font=Time+New+Roman&color=cyan&size=25&center=true&vCenter=true&width=600&height=100&lines=SegFormer Implementation;Computer Vision;">
+</p>
 
-## How to use locally
+### What is SegFormer?
+
+SegFormer is a cutting-edge semantic segmentation framework developed by NVIDIA, designed to unify Transformers with lightweight multilayer perceptron (MLP) decoders. It features a novel hierarchical Transformer encoder that outputs multiscale features without the need for positional encoding, enhancing adaptability to varying input resolutions. The MLP decoder aggregates information from different layers, combining both local and global attention mechanisms to produce powerful representations.
+
+> For an in-depth understanding, refer to the [original paper](https://arxiv.org/abs/2105.15203)
+
+### Segmentation
+
+Below is an example of semantic segmentation using a pre-trained SegFormer model:
+![Segmentation Example](data/images/Figure_1.png)
+
+
+###  How to use locally
 
 1. **Clone the repository** (if you haven't already):
    ```bash
@@ -60,3 +74,9 @@
 
 > [!NOTE]
 > Keep in mind that the Dockerfile used to deploy its based on an image with uv preinstall.
+
+### Additional Docs
+
+- If you want to know more about the SegFormer and its architecture you can either run the streamlit app or refer to [here](docs/Architecture.md)
+
+- If you want to know how was the deployment process in GCP, please refer to [here](docs/Deploy.md)
