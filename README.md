@@ -82,11 +82,11 @@ Below is an example of semantic segmentation using a pre-trained SegFormer model
 - If you want to know how was the deployment process in GCP, please refer to [here](docs/Deploy.md)
 
 
-###  Comparativa de Tiempos de Inferencia por Computador y Resolución de Video
+### 🧠 Inference Time Comparison by Computer and Video Resolution
 
-| Video                                | Resolution      | Frames | Size   | PC ASUS ROG Strix G513RC (RTX 3050) | PC 2 (por completar)     |
-|-------------------------------------|-----------------|--------|----------|--------------------------------------|---------------------------|
-| **38579-418590125_tiny.mp4**        | 640x360 px      | 249    | 6.68 MB  | 234.98s (0.944s/frame)               | _[pendiente]_             |
-| **13689328_2560_1440_30fps.mp4**    | 2560x1440 px    | 341    | 145.06 MB| 310.30s (0.910s/frame)               | _[pendiente]_             |
-| **3986275-HD_1080_1920_30fps.mp4**  | 1080x1920 px    | 596    | 142.70 MB| 547.44s (0.919s/frame)               | _[pendiente]_             |
+| Video                                | Resolution      | Frames | Size      | Duration     | RTX 3050, 4 GB VRAM | PC 2 (to be completed)     |
+|-------------------------------------|-----------------|--------|-----------|--------------|------------------------------------------------|-----------------------------|
+| **38579-418590125_tiny.mp4**        | 640x360 px      | 249    | 6.68 MB   | ~8.3 seconds | 234.98s (0.944s/frame)                          | _[pending]_                |
+| **13689328_2560_1440_30fps.mp4**    | 2560x1440 px    | 341    | 145.06 MB | ~11.4 seconds| 310.30s (0.910s/frame)                          | _[pending]_                |
+| **3986275-HD_1080_1920_30fps.mp4**  | 1080x1920 px    | 596    | 142.70 MB | ~19.9 seconds| 547.44s (0.919s/frame)                          | _[pending]_                |
 
