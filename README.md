@@ -84,7 +84,7 @@ Below is an example of semantic segmentation using a pre-trained SegFormer model
 
 ###  Comparativa de Tiempos de Inferencia por Computador y Resolución de Video
 
-| Video                                | Resolución      | Frames | Tamaño   | PC ASUS ROG Strix G513RC (RTX 3050) | PC 2 (por completar)     |
+| Video                                | Resolution      | Frames | Size   | PC ASUS ROG Strix G513RC (RTX 3050) | PC 2 (por completar)     |
 |-------------------------------------|-----------------|--------|----------|--------------------------------------|---------------------------|
 | **38579-418590125_tiny.mp4**        | 640x360 px      | 249    | 6.68 MB  | 234.98s (0.944s/frame)               | _[pendiente]_             |
 | **13689328_2560_1440_30fps.mp4**    | 2560x1440 px    | 341    | 145.06 MB| 310.30s (0.910s/frame)               | _[pendiente]_             |
