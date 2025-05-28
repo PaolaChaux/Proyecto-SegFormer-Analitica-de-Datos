@@ -1,4 +1,4 @@
-# src/pages/01_Segmentacion.py
+# src/01_Explicacion.py
 import streamlit as st
 
 st.set_page_config(page_title="1. Segmentación", page_icon="🧠")
