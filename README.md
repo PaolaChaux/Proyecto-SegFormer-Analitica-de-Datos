@@ -86,7 +86,7 @@ Below is an example of semantic segmentation using a pre-trained SegFormer model
 
 | Video                                | Resolution      | Frames | Size      | Duration     | RTX 3050, 4 GB VRAM | PC 2 (to be completed)     |
 |-------------------------------------|-----------------|--------|-----------|--------------|------------------------------------------------|-----------------------------|
-| **38579-418590125_tiny.mp4**        | 640x360 px      | 249    | 6.68 MB   | ~8.3 seconds | 234.98s (0.944s/frame)                          | _[pending]_                |
-| **13689328_2560_1440_30fps.mp4**    | 2560x1440 px    | 341    | 145.06 MB | ~11.4 seconds| 310.30s (0.910s/frame)                          | _[pending]_                |
-| **3986275-HD_1080_1920_30fps.mp4**  | 1080x1920 px    | 596    | 142.70 MB | ~19.9 seconds| 547.44s (0.919s/frame)                          | _[pending]_                |
+| **38579-418590125_tiny.mp4**        | 640x360 px      | 249    | 495.9 KB   | ~8.3 seconds | 234.98s (0.944s/frame)                          | _[pending]_                |
+| **13689328_2560_1440_30fps.mp4**    | 2560x1440 px    | 341    | 496 KB | ~11.4 seconds| 310.30s (0.910s/frame)                          | _[pending]_                |
+| **3986275-HD_1080_1920_30fps.mp4**  | 1080x1920 px    | 596    | 12.9 MB | ~19.9 seconds| 547.44s (0.919s/frame)                          | _[pending]_                |
 
