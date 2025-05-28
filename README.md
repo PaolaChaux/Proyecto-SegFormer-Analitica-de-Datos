@@ -84,7 +84,7 @@ Below is an example of semantic segmentation using a pre-trained SegFormer model
 
 ### 🧠 Inference Time Comparison by Computer and Video Resolution
 
-| Video                                | Resolution      | Frames | Size        | Duration       | RTX 3050, 4 GB VRAM                        | GTX 4 GB VRAM         |
+| Video                                | Resolution      | Frames | Size        | Duration       | RTX 3050, 4 GB VRAM                        | GTX 1650 4 GB VRAM         |
 |-------------------------------------|-----------------|--------|-------------|----------------|--------------------------------------------|------------------------------|
 | **38579-418590125_tiny.mp4**        | 640x360 px      | 249    | 495.9 KB    | ~8.3 seconds   | 30.15s total (0.047s/frame) | 62.02s total (0.094s/frame)  |
 | **13689328_2560_1440_30fps.mp4**    | 2560x1440 px    | 341    | 25.5 MB   | ~11.4 seconds  | 63.92s total (0.045s/frame) | 95.02s total (0.100s/frame)  |
