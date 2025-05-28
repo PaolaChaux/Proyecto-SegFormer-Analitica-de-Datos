@@ -4,6 +4,7 @@ import cv2
 import tempfile
 import os
 import numpy as np
+import time
 
 from segformer_model import (
     load_model, get_classes, segment_image, segment_frame,
@@ -95,19 +96,32 @@ if not start_cam:
             os.makedirs(output_dir, exist_ok=True)
             output_path = os.path.join(output_dir, "video_segmentado.mp4")
 
-            fourcc = cv2.VideoWriter_fourcc(*"mp4v")
-            out = cv2.VideoWriter(output_path, fourcc, fps, (width, height))
-
             progress_bar = st.progress(0)
             frame_num = 0
             clases_detectadas_video = set()
+            
+            # Iniciar medición de tiempo total
+            tiempo_inicio_total = time.time()
+            tiempo_total_inferencia = 0.0
+            
+            # Mostrar información de inicio del procesamiento
+            info_container = st.container()
+            with info_container:
+                st.info("🔄 Procesando video... Esto puede tomar unos minutos.")
 
+            # Configurar writer con H.264
+            fourcc = cv2.VideoWriter_fourcc(*"h264")
+            out = cv2.VideoWriter(output_path, fourcc, fps, (width, height))
+            
             while True:
                 ret, frame = cap.read()
                 if not ret:
                     break
 
-                mask, _ = segment_frame(frame, processor, model, device)
+                # Medir tiempo de inferencia por frame
+                mask, tiempo_frame = segment_frame(frame, processor, model, device)
+                tiempo_total_inferencia += tiempo_frame
+                
                 clases_frame = set(np.unique(mask))
                 clases_detectadas_video.update(clases_frame)
 
@@ -118,27 +132,102 @@ if not start_cam:
                 overlay = cv2.addWeighted(frame, 0.5, mask_resized, 0.5, 0)
                 out.write(overlay)
 
-                if frame_num == 0:
-                    st.image(cv2.cvtColor(overlay, cv2.COLOR_BGR2RGB), 
-                           caption="Primer frame segmentado")
-
                 frame_num += 1
                 progress_bar.progress(min(frame_num / frame_count, 1.0))
-
+            
             cap.release()
             out.release()
 
-            st.success("Video segmentado procesado!")
+            # Calcular tiempo total transcurrido
+            tiempo_fin_total = time.time()
+            tiempo_total_transcurrido = tiempo_fin_total - tiempo_inicio_total
 
+            # Mostrar estadísticas de tiempo
+            st.success("✅ Video segmentado procesado!")
+            
+            # Crear columnas para mostrar las estadísticas de tiempo
+            col1, col2, col3 = st.columns(3)
+            
+            with col1:
+                st.metric(
+                    label="⏱️ Tiempo Total",
+                    value=f"{tiempo_total_transcurrido:.2f}s",
+                    help="Tiempo total incluyendo I/O y procesamiento"
+                )
+            
+            with col2:
+                st.metric(
+                    label="🧠 Tiempo de Inferencia",
+                    value=f"{tiempo_total_inferencia:.2f}s",
+                    help="Tiempo puro de inferencia del modelo"
+                )
+            
+            with col3:
+                tiempo_promedio_frame = tiempo_total_inferencia / frame_count if frame_count > 0 else 0
+                st.metric(
+                    label="📊 Promedio por Frame",
+                    value=f"{tiempo_promedio_frame:.3f}s",
+                    help="Tiempo promedio de inferencia por frame"
+                )
+
+            # Información adicional de rendimiento
+            st.markdown("### 📈 Estadísticas de Rendimiento")
+            
+            fps_procesamiento = frame_count / tiempo_total_transcurrido if tiempo_total_transcurrido > 0 else 0
+            fps_inferencia = frame_count / tiempo_total_inferencia if tiempo_total_inferencia > 0 else 0
+            
+            col_stats1, col_stats2 = st.columns(2)
+            
+            with col_stats1:
+                st.markdown(f"""
+                **Velocidad de Procesamiento:**
+                - FPS del video original: {fps:.2f}
+                - FPS de procesamiento: {fps_procesamiento:.2f}
+                - FPS solo inferencia: {fps_inferencia:.2f}
+                """)
+            
+            with col_stats2:
+                overhead_tiempo = tiempo_total_transcurrido - tiempo_total_inferencia
+                porcentaje_inferencia = (tiempo_total_inferencia / tiempo_total_transcurrido * 100) if tiempo_total_transcurrido > 0 else 0
+                
+                st.markdown(f"""
+                **Análisis de Tiempo:**
+                - Frames procesados: {frame_count:,}
+                - Overhead (I/O + escritura): {overhead_tiempo:.2f}s
+                - % tiempo en inferencia: {porcentaje_inferencia:.1f}%
+                """)
+
+            # Información del archivo generado
+            file_size = os.path.getsize(output_path) / (1024 * 1024)  # MB
+            st.markdown(f"""
+            **📄 Información del Archivo:**
+            - Códec utilizado: **H.264**
+            - Formato: **MP4**
+            - Tamaño del archivo: **{file_size:.2f} MB**
+            """)
+
+            # Mostrar clases detectadas
             clases_detectadas_video = sorted(clases_detectadas_video)
-            st.markdown("### Clases detectadas en el video:")
-            for idx in clases_detectadas_video:
-                st.markdown(f"- {classes[idx]}")
+            st.markdown("### 🏷️ Clases detectadas en el video:")
+            
+            # Mostrar clases en columnas para mejor visualización
+            num_cols = 3
+            clases_por_columna = len(clases_detectadas_video) // num_cols + 1
+            cols = st.columns(num_cols)
+            
+            for i, idx in enumerate(clases_detectadas_video):
+                col_idx = i // clases_por_columna
+                if col_idx < len(cols):
+                    with cols[col_idx]:
+                        st.markdown(f"• {classes[idx]}")
 
+            # Mostrar video resultado y botón de descarga
+            st.markdown("### 🎬 Video Segmentado")
             st.video(output_path)
+            
             with open(output_path, "rb") as f:
                 st.download_button(
-                    label="Descargar video segmentado",
+                    label="📥 Descargar video segmentado",
                     data=f,
                     file_name="video_segmentado.mp4",
                     mime="video/mp4"
