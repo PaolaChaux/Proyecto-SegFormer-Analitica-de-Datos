@@ -22,7 +22,7 @@ data = {
         "63.92s total (0.045s/frame)",
         "83.84s total (0.045s/frame)"
     ],
-    "GTX 1650 4 GB VRAM": [
+    "GTX 1650, 4 GB VRAM": [
         "62.02s total (0.094s/frame)",
         "95.02s total (0.100s/frame)",
         "145.41s total (0.091s/frame)"
