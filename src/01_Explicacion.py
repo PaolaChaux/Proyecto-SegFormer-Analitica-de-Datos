@@ -2,7 +2,7 @@ import streamlit as st
 
 st.set_page_config(
     page_title="Segmentación Semántica", 
-    page_icon="🧠", 
+    page_icon="🖥️", 
     layout="wide")
 
 # Cargar estilos CSS
@@ -17,9 +17,9 @@ st.markdown(
     """
     <div class="hero-section">
         <div class="hero-content">
-            <div class="hero-icon">🧠</div>
+            <div class="hero-icon">🖥️</div>
             <h1 class="hero-title">¿Qué es la segmentación semántica?</h1>
-            <p class="hero-subtitle">Clasificación pixel por pixel para entender escenas visuales</p>
+            <p class="hero-subtitle">Santiago Murgueitio - Paola Chaux - Sebastian Ortiz</p>
         </div>
         <div class="hero-decoration"></div>
     </div>
@@ -96,6 +96,14 @@ st.markdown(
                     <div class="app-item">
                         <div class="app-icon">🏥</div>
                         <span>Análisis médico</span>
+                    </div>
+                    <div class="app-item">
+                        <div class="app-icon">🗺️</div>
+                        <span>Análisis Geoespacial</span>
+                    </div>
+                    <div class="app-item">
+                        <div class="app-icon">🔍</div>
+                        <span>Investigación</span>
                     </div>
                 </div>
                 <p>Ya que provee un entendimiento detallado y localizado de la escena visual.</p>
