@@ -5,51 +5,184 @@ st.set_page_config(
     page_icon="🧠", 
     layout="wide")
 
+# Cargar estilos CSS
+def load_css(file_name):
+    with open(file_name) as f:
+        st.markdown(f'<style>{f.read()}</style>', unsafe_allow_html=True)
 
-with st.container():
+load_css('src/styles.css')
+
+# Header principal con hero section
+st.markdown(
+    """
+    <div class="hero-section">
+        <div class="hero-content">
+            <div class="hero-icon">🧠</div>
+            <h1 class="hero-title">¿Qué es la segmentación semántica?</h1>
+            <p class="hero-subtitle">Clasificación pixel por pixel para entender escenas visuales</p>
+        </div>
+        <div class="hero-decoration"></div>
+    </div>
+    """,
+    unsafe_allow_html=True,
+)
+
+# Contenedor principal para el contenido
+st.markdown('<div class="main-content">', unsafe_allow_html=True)
+
+# Sección de demostración visual
+st.markdown(
+    """
+    <div class="demo-section">
+        <div class="section-header">
+            <h2>Demostración Visual</h2>
+            <p>Observa cómo funciona la segmentación semántica en tiempo real</p>
+        </div>
+    </div>
+    """,
+    unsafe_allow_html=True,
+)
+
+# Contenedor para la imagen GIF
+st.markdown('<div class="image-container demo-gif">', unsafe_allow_html=True)
+st.image(
+    "https://github.com/NVlabs/SegFormer/blob/master/resources/seg_demo.gif?raw=true",
+    caption="Segmentación Semántica en Acción",
+    width=700,
+)
+st.markdown('</div>', unsafe_allow_html=True)
+
+# Sección de definición
+st.markdown(
+    """
+    <div class="definition-section">
+        <div class="content-card">
+            <div class="card-header">
+                <h2>¿Qué es?</h2>
+            </div>
+            <div class="card-content">
+                <p>La segmentación semántica es una tarea fundamental en visión por computadora que consiste en clasificar cada píxel de una imagen asignándole una etiqueta que indica el objeto o categoría a la que pertenece.</p>
+                <p>Esto permite entender la escena a nivel granular, diferenciando objetos y regiones con significado semántico.</p>
+            </div>
+        </div>
+    </div>
+    """,
+    unsafe_allow_html=True,
+)
+
+# Sección de importancia
+st.markdown(
+    """
+    <div class="importance-section">
+        <div class="content-card highlight">
+            <div class="card-header">
+                <h2>¿Por qué es importante?</h2>
+            </div>
+            <div class="card-content">
+                <p>La segmentación semántica es crítica para aplicaciones como:</p>
+                <div class="applications-grid">
+                    <div class="app-item">
+                        <div class="app-icon">🚗</div>
+                        <span>Conducción autónoma</span>
+                    </div>
+                    <div class="app-item">
+                        <div class="app-icon">🤖</div>
+                        <span>Robótica</span>
+                    </div>
+                    <div class="app-item">
+                        <div class="app-icon">👁️</div>
+                        <span>Realidad aumentada</span>
+                    </div>
+                    <div class="app-item">
+                        <div class="app-icon">🏥</div>
+                        <span>Análisis médico</span>
+                    </div>
+                </div>
+                <p>Ya que provee un entendimiento detallado y localizado de la escena visual.</p>
+            </div>
+        </div>
+    </div>
+    """,
+    unsafe_allow_html=True,
+)
+
+# Sección de funcionamiento
+st.markdown(
+    """
+    <div class="how-it-works-section">
+        <div class="content-card">
+            <div class="card-header">
+                <h2>¿Cómo funciona?</h2>
+            </div>
+            <div class="card-content">
+                <p>En la segmentación clásica, cada píxel de la imagen se clasifica en una de varias categorías predefinidas. Estos píxeles pueden representar objetos como personas, vehículos, edificios, etc.</p>
+            </div>
+        </div>
+    </div>
+    """,
+    unsafe_allow_html=True,
+)
+
+# Ejemplo de imagen
+st.markdown('<div class="image-container example-image">', unsafe_allow_html=True)
+try:
+    st.image("data/images/001_segformer_img.png", caption="Ejemplo de segmentación semántica", width=700)
+except FileNotFoundError:
     st.markdown(
         """
-        <div class="header-box">
-            <h1>¿Qué es la segmentación semántica?</h1>
+        <div class="warning-box">
+            <div class="warning-icon">⚠️</div>
+            <div class="warning-text">
+                <strong>Imagen no encontrada</strong><br>
+                No se pudo cargar la imagen. Verifica la ruta: data/images/001_segformer_img.png
+            </div>
         </div>
         """,
         unsafe_allow_html=True,
     )
+st.markdown('</div>', unsafe_allow_html=True)
 
-st.image(
-    "https://github.com/NVlabs/SegFormer/blob/master/resources/seg_demo.gif?raw=true",
-    caption="Segmentación Semántica",
-    width=700,
-)
-
+# Sección de tareas de visión por computadora
 st.markdown(
     """
-La segmentación semántica es una tarea fundamental en visión por computadora que consiste en clasificar cada píxel de una imagen asignándole una etiqueta que indica el objeto o categoría a la que pertenece.  
-Esto permite entender la escena a nivel granular, diferenciando objetos y regiones con significado semántico.
-
-### ¿Por qué es importante esta tarea?
-
-La segmentación semántica es crítica para aplicaciones como conducción autónoma, robótica, realidad aumentada, análisis médico, y más, ya que provee un entendimiento detallado y localizado de la escena visual.
-
-### ¿Cómo funciona?
-
-En la segmentación clásica, cada píxel de la imagen se clasifica en una de varias categorías predefinidas.
-estos pixeles pueden representar objetos como personas, vehículos, edificios, etc.
-"""
+    <div class="tasks-section">
+        <div class="content-card">
+            <div class="card-header">
+                <h2>Tareas comunes de visión por computadora</h2>
+            </div>
+        </div>
+    </div>
+    """,
+    unsafe_allow_html=True,
 )
 
+st.markdown('<div class="image-container tasks-image">', unsafe_allow_html=True)
 try:
-    st.image("data/images/001_segformer_img.png", caption="Ejemplo de segmentación semántica", width=700)
+    st.image("data/images/computer-vision.png", caption="Tareas de visión por computadora", width=700)
 except FileNotFoundError:
-    st.warning("⚠️ No se pudo cargar la imagen. Verifica la ruta: data/images/001_segformer_img.png")
+    st.markdown(
+        """
+        <div class="warning-box">
+            <div class="warning-icon">⚠️</div>
+            <div class="warning-text">
+                <strong>Imagen no encontrada</strong><br>
+                No se pudo cargar la imagen. Verifica la ruta: data/images/computer-vision.png
+            </div>
+        </div>
+        """,
+        unsafe_allow_html=True,
+    )
+st.markdown('</div>', unsafe_allow_html=True)
 
+# Cerrar contenedor principal
+st.markdown('</div>', unsafe_allow_html=True)
+
+# Footer
 st.markdown(
     """
-### Tareas comunes de visión por computadora
-"""
+    <div class="footer">
+        <p>🧠 Segmentación Semántica - Visión por Computadora</p>
+    </div>
+    """,
+    unsafe_allow_html=True,
 )
-
-try:
-    st.image("data/images/computer-vision.png", caption="Ejemplo de segmentación semántica", width=700)
-except FileNotFoundError:
-    st.warning("⚠️ No se pudo cargar la imagen. Verifica la ruta: data/images/001_segformer_img.png")
