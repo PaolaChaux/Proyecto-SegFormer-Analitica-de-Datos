@@ -44,11 +44,10 @@ st.markdown(
 )
 
 # Contenedor para la imagen GIF
-st.markdown('<div class="image-container demo-gif">', unsafe_allow_html=True)
 st.image(
     "https://github.com/NVlabs/SegFormer/blob/master/resources/seg_demo.gif?raw=true",
     caption="Segmentación Semántica en Acción",
-    width=700,
+    width=800,
 )
 st.markdown('</div>', unsafe_allow_html=True)
 
@@ -79,7 +78,9 @@ st.markdown(
                 <h2>¿Por qué es importante?</h2>
             </div>
             <div class="card-content">
-                <p>La segmentación semántica es crítica para aplicaciones como:</p>
+                <p>La segmentación semántica es una de las tareas más complejas en la visión por computadora, ya que requiere no solo identificar objetos,
+                 sino también entender su contexto y relaciones espaciales, de forma muy detallada.
+                 Su uso es elemental para aplicaciones como: </p>
                 <div class="applications-grid">
                     <div class="app-item">
                         <div class="app-icon">🚗</div>
@@ -106,7 +107,6 @@ st.markdown(
                         <span>Investigación</span>
                     </div>
                 </div>
-                <p>Ya que provee un entendimiento detallado y localizado de la escena visual.</p>
             </div>
         </div>
     </div>
@@ -123,7 +123,8 @@ st.markdown(
                 <h2>¿Cómo funciona?</h2>
             </div>
             <div class="card-content">
-                <p>En la segmentación clásica, cada píxel de la imagen se clasifica en una de varias categorías predefinidas. Estos píxeles pueden representar objetos como personas, vehículos, edificios, etc.</p>
+                <p>En la segmentación clásica, cada píxel de la imagen se clasifica en una de varias categorías predefinidas. Estos píxeles pueden representar objetos como personas, vehículos, edificios, etc.
+                Como este proceso se realiza a nivel de pixel esto nos permite tener bordes claros para los diferentes objetos</p>
             </div>
         </div>
     </div>
@@ -131,10 +132,9 @@ st.markdown(
     unsafe_allow_html=True,
 )
 
-# Ejemplo de imagen
-st.markdown('<div class="image-container example-image">', unsafe_allow_html=True)
+
 try:
-    st.image("data/images/001_segformer_img.png", caption="Ejemplo de segmentación semántica", width=700)
+    st.image("data/images/001_segformer_img.png", caption="Ejemplo de segmentación semántica", width=800)
 except FileNotFoundError:
     st.markdown(
         """
@@ -158,15 +158,18 @@ st.markdown(
             <div class="card-header">
                 <h2>Tareas comunes de visión por computadora</h2>
             </div>
+            <div class="card-content">
+                <p>A continuación, podemos observar de manera gráfica la diferencia de la segmentación semantica con respecto a otras tecnicas de visión por computadora</p>
+            </div>
         </div>
     </div>
     """,
     unsafe_allow_html=True,
 )
 
-st.markdown('<div class="image-container tasks-image">', unsafe_allow_html=True)
+
 try:
-    st.image("data/images/computer-vision.png", caption="Tareas de visión por computadora", width=700)
+    st.image("data/images/computer-vision.png", caption="Tareas de visión por computadora", width=800)
 except FileNotFoundError:
     st.markdown(
         """
@@ -189,7 +192,7 @@ st.markdown('</div>', unsafe_allow_html=True)
 st.markdown(
     """
     <div class="footer">
-        <p>🧠 Segmentación Semántica - Visión por Computadora</p>
+        <p>🖥️ Segmentación Semántica - Visión por Computadora</p>
     </div>
     """,
     unsafe_allow_html=True,

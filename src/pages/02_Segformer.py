@@ -124,9 +124,6 @@ st.markdown(
         <div class="card-header">
             <h2>Arquitectura del SegFormer</h2>
         </div>
-        <div class="card-content">
-            <p>Encoder jerárquico con múltiples escalas y decoder ligero MLP.</p>
-        </div>
     </div>
     """,
     unsafe_allow_html=True,
@@ -176,7 +173,7 @@ st.markdown(
     unsafe_allow_html=True,
 )
 
-# Ventajas
+# Ventajas - MEJORADO CON COLORES
 st.markdown(
     """
     <div class="content-card">
@@ -184,14 +181,48 @@ st.markdown(
             <h2>Ventajas Clave</h2>
         </div>
         <div class="card-content">
-            <ul>
-                <li>🚫 Sin Positional Embeddings</li>
-                <li>📊 Jerarquía eficiente para contexto y detalle</li>
-                <li>⚡ Inferencia rápida: hasta 47 FPS</li>
-                <li>🔧 Modular: MiT-B0 a B5</li>
+            <ul class="advantages-list">
+                <li><span class="emoji-highlight">🚫</span> <span class="advantage-text">Sin Positional Embeddings</span></li>
+                <li><span class="emoji-highlight">📊</span> <span class="advantage-text">Jerarquía eficiente para contexto y detalle</span></li>
+                <li><span class="emoji-highlight">⚡</span> <span class="advantage-text">Inferencia rápida: hasta 47 FPS</span></li>
+                <li><span class="emoji-highlight">🔧</span> <span class="advantage-text">Modular: MiT-B0 a B5</span></li>
             </ul>
         </div>
     </div>
+    
+    <style>
+    .advantages-list li {
+        display: flex;
+        align-items: center;
+        margin-bottom: 8px;
+        padding: 8px 0;
+    }
+    
+    .emoji-highlight {
+        font-size: 1.2em;
+        margin-right: 12px;
+        min-width: 30px;
+        display: inline-block;
+    }
+    
+    .advantage-text {
+        color: #333;
+        font-weight: 500;
+        line-height: 1.4;
+    }
+    
+    /* Para modo oscuro si tu tema lo soporta */
+    @media (prefers-color-scheme: dark) {
+        .advantage-text {
+            color: #e0e0e0;
+        }
+    }
+    
+    /* Si usas un tema específico de Streamlit, ajusta estos colores */
+    .stApp .advantage-text {
+        color: var(--text-color, #333) !important;
+    }
+    </style>
     """,
     unsafe_allow_html=True,
 )

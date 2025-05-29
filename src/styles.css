@@ -701,3 +701,13 @@ header[data-testid="stHeader"] {
     background-color: #e6ecf5; /* mejora visibilidad al hacer hover */
     transition: background-color 0.3s ease;
 }
+
+/* Asegura texto oscuro para todo el contenido dentro de las tarjetas */
+.content-card .card-content,
+.content-card .card-content p,
+.content-card .card-content ul li,
+.content-card .card-content table td,
+.content-card .card-content table th {
+    color: #2d3748 !important; /* negro suave, igual al de "¿Qué es SegFormer?" */
+}
+
