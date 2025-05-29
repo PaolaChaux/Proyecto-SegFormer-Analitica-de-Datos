@@ -11,44 +11,8 @@ st.set_page_config(
     }
 )
 
-st.markdown("""
-<style>
-    .main {
-        padding: 2rem 4rem;
-        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        background: #f5f7fa;
-        color: #222222;
-    }
-    h1, h2, h3 {
-        color: #0d6efd;
-    }
-    table {
-        border-collapse: collapse;
-        width: 50%;
-        margin-top: 1rem;
-        margin-bottom: 2rem;
-    }
-    th, td {
-        border: 1px solid #ddd;
-        padding: 8px 12px;
-        text-align: left;
-    }
-    th {
-        background-color: #0d6efd;
-        color: white;
-    }
-    a {
-        color: #0d6efd;
-        font-weight: bold;
-        text-decoration: none;
-    }
-    a:hover {
-        text-decoration: underline;
-    }
-</style>
-""", unsafe_allow_html=True)
 
-st.title("2. Arquitectura detallada de SegFormer")
+st.title("Arquitectura detallada de SegFormer")
 
 st.markdown("""
 ## Introducción

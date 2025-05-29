@@ -3,34 +3,6 @@ import streamlit as st
 
 st.set_page_config(page_title="1. Segmentación", page_icon="🧠", layout="wide")
 
-# CSS profesional para la página
-st.markdown("""
-<style>
-    .main {
-        padding: 2rem 4rem;
-        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        background: #f5f7fa;
-        color: #222222;
-    }
-    .header-box {
-        background-color: #0d6efd;
-        color: white;
-        padding: 2rem;
-        border-radius: 12px;
-        box-shadow: 0 8px 24px rgba(13, 110, 253, 0.3);
-        margin-bottom: 2rem;
-    }
-    a {
-        color: #0d6efd;
-        font-weight: bold;
-        text-decoration: none;
-    }
-    a:hover {
-        text-decoration: underline;
-    }
-</style>
-""", unsafe_allow_html=True)
-
 with st.container():
     st.markdown(
         """
