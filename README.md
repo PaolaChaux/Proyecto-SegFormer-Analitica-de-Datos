@@ -44,7 +44,7 @@ Below is an example of semantic segmentation using a pre-trained SegFormer model
         ```
     - Run the app
         ```
-        uv run streamlit run src/segformer_model.py
+        uv run streamlit run src/01_Explicacion.py
         ```
     </details>
 
@@ -68,7 +68,7 @@ Below is an example of semantic segmentation using a pre-trained SegFormer model
         ```
     - Run the app
         ```
-        streamlit run src/Homepage.py
+        streamlit run src/01_Explicacion.py
         ```
     </details>
 
