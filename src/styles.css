@@ -674,3 +674,30 @@ header[data-testid="stHeader"] {
         font-size: 1rem;
     }
 }
+
+.styled-table th,
+.styled-table td {
+    border: 1px solid #ddd;
+    padding: 12px 16px;
+    text-align: center;
+    color: var(--text-color); /* mejora visibilidad en celdas */
+    font-size: 1rem;
+    background-color: white;  /* asegura buen contraste */
+}
+
+.styled-table thead {
+    background-color: var(--primary-color);
+    color: white;
+    text-transform: uppercase;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+}
+
+.styled-table tbody tr:nth-child(even) {
+    background-color: #f4f6fa; /* más contraste que #f9f9f9 */
+}
+
+.styled-table tbody tr:hover {
+    background-color: #e6ecf5; /* mejora visibilidad al hacer hover */
+    transition: background-color 0.3s ease;
+}
