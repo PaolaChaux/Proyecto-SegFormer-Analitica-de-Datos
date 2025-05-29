@@ -28,7 +28,7 @@ Below is an example of semantic segmentation using a pre-trained SegFormer model
 2. Setup enviroment & requirements
 
     <details>
-    <summary><b>Using <a href=https://docs.astral.sh/uv/>UV</a>></b></summary>
+    <summary><b>Using <a href=https://docs.astral.sh/uv/>UV</a></b></summary>
 
     - Install uv
         ```
