@@ -8,7 +8,7 @@ st.markdown("""
 SegFormer propone un diseño simple pero eficiente para segmentación semántica basado en Transformers, que combina un encoder jerárquico con un decoder ligero y sin uso de positional embeddings, permitiendo alta precisión y velocidad.
 """)
 st.image("data/images/003_segformer_img.png", caption="Segmentacion Semantica", width=1000)
-st.image("data/images/ARQUITECTURAIMAGEN.png",
+st.image("data/images/000_Architecture.png",
             caption="Arquitectura SegFormer (Encoder + Decoder)")
 st.markdown("""
 ## Encoder: Mix Transformer (MiT)
