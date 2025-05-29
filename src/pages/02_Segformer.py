@@ -1,8 +1,8 @@
-# src/pages/02_Segformer.py
 import streamlit as st
+import os
 
 st.set_page_config(
-    page_title="2. SegFormer",
+    page_title="SegFormer",
     page_icon="🔍",
     layout="wide",
     initial_sidebar_state="expanded",
@@ -12,16 +12,63 @@ st.set_page_config(
 )
 
 
-st.title("Arquitectura detallada de SegFormer")
+st.title("SegFormer")
 
 st.markdown("""
-## Introducción
+Es un modelo de NVIDIA con una arquitectura reciente basada en Transformers diseñada específicamente para segmentación semántica con eficiencia y precisión.  
+SegFormer combina un encoder jerárquico eficiente que captura características a múltiples escalas y un decoder ligero que integra estas características para producir una segmentación precisa.
+Todo esto sin necesidad de embeddings posicionales.
 
-SegFormer propone un diseño simple pero eficiente para segmentación semántica basado en Transformers, que combina un encoder jerárquico con un decoder ligero y sin uso de positional embeddings, permitiendo alta precisión y velocidad.
+Algunas características destacadas de SegFormer:
+
+- Al no trabajar con embeddings posicionales, puede manejar imágenes de tamaños variados sin pérdida de información espacial.  
+- Arquitectura simple pero potente, con un balance óptimo entre número de parámetros y velocidad.  
+- Entrenado sobre datasets estándares como ADE20k, logrando resultados de punta en benchmarks públicos al momento de su publicación.
+
+Para más detalles técnicos y resultados, puedes consultar el [paper original de SegFormer](https://arxiv.org/abs/2105.15203).
+
+## Algunos ejemplos de segmentación semántica con SegFormer
 """)
 
-st.image("data/images/003_segformer_img.png", caption="Segmentación Semántica", width=900)
-st.image("data/images/000_Architecture.png", caption="Arquitectura SegFormer (Encoder + Decoder)", width=900)
+segformer_examples = [
+    "data/images/001_segformer_img.png",
+    "data/images/002_segformer_img.png",
+    "data/images/003_segformer_img.png"
+]
+
+captions = [
+    "Segmentación Semántica - Moto en el aire",
+    "Segmentación Semántica - Jugadores en el campo de béisbol",
+    "Segmentación Semántica - Surfistas en la playa"
+    ]
+
+# Inicializar el índice en session_state
+if "carousel_index" not in st.session_state:
+    st.session_state.carousel_index = 0
+
+# Crear layout con 3 columnas
+col1, col2, col3 = st.columns([1, 6, 1])
+
+with col1:
+    if st.button("◀", use_container_width=True) and st.session_state.carousel_index > 0:
+        st.session_state.carousel_index -= 1
+
+with col3:
+    if st.button("▶", use_container_width=True) and st.session_state.carousel_index < len(segformer_examples) - 1:
+        st.session_state.carousel_index += 1
+
+# Mostrar la imagen en el centro
+with col2:
+    current_idx = st.session_state.carousel_index
+    if os.path.exists(segformer_examples[current_idx]):
+        st.image(segformer_examples[current_idx], caption=captions[current_idx], use_container_width=True)
+    else:
+        st.warning(f"No se encontró la imagen: {segformer_examples[current_idx]}")
+
+st.markdown("""
+## Arquitectura del SegFormer """)
+
+st.image("data/images/000_Architecture.png", caption="Arquitectura SegFormer (Encoder + Decoder)", width=800)
 
 st.markdown("""
 ## Encoder: Mix Transformer (MiT)

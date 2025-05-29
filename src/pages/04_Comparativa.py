@@ -3,7 +3,10 @@ import pandas as pd
 import matplotlib.pyplot as plt
 import io
 
-st.set_page_config(page_title="Comparativa Inferencia", page_icon="📊", layout="wide")
+st.set_page_config(
+    page_title="Comparativa Inferencia", 
+    page_icon="📊", 
+    layout="wide")
 
 st.title("Comparativa de tiempos de inferencia por computadora y video")
 
@@ -58,5 +61,5 @@ buf = io.BytesIO()
 fig.savefig(buf, format="png", bbox_inches='tight')
 buf.seek(0)
 
-st.image(buf, width=3000) 
+st.image(buf, width=700) 
 
