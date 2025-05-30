@@ -194,7 +194,7 @@ header[data-testid="stHeader"] {
 }
 
 .card-content {
-    padding: 1rem 2rem 2rem 2rem;
+    padding: 1rem 2rem 1rem 2rem;
 }
 
 .card-content p {
@@ -711,3 +711,140 @@ header[data-testid="stHeader"] {
     color: #2d3748 !important; /* negro suave, igual al de "¿Qué es SegFormer?" */
 }
 
+/* Reduce espaciado en sección de procesamiento de imagen */
+.content-card.highlight .card-content {
+    padding: 0.5rem 2rem 1rem 2rem;
+}
+
+/* Remove default margins from Streamlit columns in image processing */
+div[data-testid="column"] {
+    gap: 0.5rem;
+}
+/* Asegurar que las columnas no se solapen */
+div[data-testid="column"] > div {
+    width: 100% !important;
+    max-width: 100% !important;
+    overflow: hidden;
+}
+
+/* Limitar el ancho de las imágenes dentro de las columnas */
+div[data-testid="column"] img {
+    max-width: 100% !important;
+    height: auto !important;
+}
+/* Texto negro tenue para títulos de video y estadísticas */
+.carousel-container h3 {
+    color: #4a5568 !important; /* Negro tenue */
+}
+
+/* Estadísticas de procesamiento en negro tenue */
+.content-card strong,
+.content-card .card-content strong {
+    color: #4a5568 !important;
+}
+
+/* Métricas de Streamlit en negro tenue */
+div[data-testid="metric-container"] label,
+div[data-testid="metric-container"] > div > div > div {
+    color: #4a5568 !important;
+}
+
+div[data-testid="metric-container"] [data-testid="metric-value"] {
+    color: #4a5568 !important;
+}
+
+div[data-testid="metric-container"] [data-testid="metric-delta"] {
+    color: #718096 !important; /* Un poco más claro para el texto secundario */
+}
+
+/* File uploader text en negro tenue */
+div[data-testid="stFileUploader"] label,
+div[data-testid="stFileUploader"] .uploadedFileName,
+div[data-testid="stFileUploader"] small {
+    color: #4a5568 !important;
+}
+
+/* Texto de información de archivo cargado */
+div[data-testid="stFileUploader"] .uploadedFileName {
+    color: #4a5568 !important;
+    font-weight: 500;
+}
+
+/* Badges de clases detectadas en negro tenue */
+div[style*="background: rgba(102, 126, 234, 0.1)"] {
+    color: #4a5568 !important;
+}
+
+div[style*="background: rgba(102, 126, 234, 0.1)"] strong {
+    color: #4a5568 !important;
+}
+
+/* Texto de listas y bullets en las estadísticas */
+.content-card .card-content ul,
+.content-card .card-content li {
+    color: #4a5568 !important;
+}
+
+/* Texto dentro de elementos code/backticks */
+.content-card .card-content code {
+    background: rgba(74, 85, 104, 0.1) !important;
+    color: #4a5568 !important;
+}
+
+/* Asegurar que todo el texto markdown mantenga el color tenue */
+.content-card .card-content p,
+.content-card .card-content div {
+    color: #4a5568 !important;
+}
+
+/* Excepción para mantener el blanco en tarjetas highlight */
+.content-card.highlight .card-content,
+.content-card.highlight .card-content p,
+.content-card.highlight .card-content strong,
+.content-card.highlight .card-content code {
+    color: rgba(255, 255, 255, 0.9) !important;
+}
+/* Métricas de video (Resolución, FPS, Total Frames) en negro tenue */
+div[data-testid="metric-container"] [data-testid="metric-label"] {
+    color: #4a5568 !important;
+    font-weight: 500 !important;
+}
+
+div[data-testid="metric-container"] [data-testid="metric-value"] {
+    color: #4a5568 !important;
+    font-weight: 600 !important;
+}
+
+/* Texto secundario de las métricas */
+div[data-testid="metric-container"] [data-testid="metric-delta"] {
+    color: #718096 !important;
+}
+
+/* Nombre del archivo subido en negro tenue */
+div[data-testid="stFileUploader"] span[data-testid="stMarkdownContainer"] p,
+div[data-testid="stFileUploader"] .uploadedFileName,
+div[data-testid="stFileUploader"] div[data-testid="stMarkdownContainer"] {
+    color: #4a5568 !important;
+}
+
+/* Texto del archivo cuando está seleccionado */
+section[data-testid="stFileUploader"] small,
+section[data-testid="stFileUploader"] div {
+    color: #4a5568 !important;
+}
+
+/* Contenedor del archivo subido */
+div[data-testid="stFileUploader"] > div > div {
+    color: #4a5568 !important;
+}
+
+/* Información específica del archivo uploadado */
+div[data-baseweb="notification"] span,
+div[data-baseweb="notification"] {
+    color: #4a5568 !important;
+}
+
+/* Forzar el color en todos los elementos de texto del file uploader */
+div[data-testid="stFileUploader"] * {
+    color: #4a5568 !important;
+}

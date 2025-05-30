@@ -105,11 +105,13 @@ st.markdown(
     unsafe_allow_html=True,
 )
 
-col1, col2 = st.columns(2)
+left_space, col1, col2, right_space = st.columns([1, 2, 2, 1])
+
 with col1:
-    start_cam = st.checkbox("🟢 Iniciar cámara en vivo")
+    start_cam = st.button("🟢 Activar cámara", use_container_width=True)
+
 with col2:
-    stop_btn = st.button("🔴 Detener cámara", key="detener_cam_unique")
+    stop_btn = st.button("🔴 Detener cámara", key="detener_cam_unique", use_container_width=True)
 
 st.markdown('</div></div>', unsafe_allow_html=True)
 
@@ -130,12 +132,20 @@ if start_cam and not stop_btn:
         )
         st.stop()
 
-    # Contenedor para video en vivo
-    st.markdown('<div class="carousel-container">', unsafe_allow_html=True)
+    # Contenedor centrado para video e info
+    st.markdown("""
+        <div style="display: flex; flex-direction: column; align-items: center; margin-top: 1rem;">
+            <div style="max-width: 800px; width: 100%;">
+    """, unsafe_allow_html=True)
+
     frame_slot = st.empty()
     info_slot = st.empty()
-    st.markdown('</div>', unsafe_allow_html=True)
-    
+
+    st.markdown("""
+            </div>
+        </div>
+    """, unsafe_allow_html=True)
+
     st.session_state["stop_cam"] = False
 
     while cap.isOpened() and not st.session_state.get("stop_cam", False):
@@ -155,7 +165,7 @@ if start_cam and not stop_btn:
         class_list = [classes[i] for i in detected_idx]
         info_slot.markdown(
             f"""
-            <div style="background: rgba(102, 126, 234, 0.1); padding: 1rem; border-radius: 10px; margin: 1rem 0;">
+            <div style="background: rgba(102, 126, 234, 0.1); padding: 1rem; border-radius: 10px; margin: 1rem 0; text-align: center;">
                 <strong>🏷️ Clases detectadas:</strong> {", ".join(class_list)}
             </div>
             """, 
@@ -217,18 +227,44 @@ if not start_cam:
             
             image = Image.open(file).convert("RGB")
             
-            col1, col2 = st.columns(2)
+            # Definimos altura fija para las imágenes (por ejemplo, 400px)
+            fixed_height = 400
+
+            # Obtener ancho proporcional para la imagen original
+            orig_w, orig_h = image.size
+            new_width = int((fixed_height / orig_h) * orig_w)
+
+            # Procesar máscara con tamaño fijo para que coincida la altura
+            mask, duration = segment_image(image, processor, model, device)
+            mask_resized_image = image.resize((new_width, fixed_height))
+
+            # Columnas para las imágenes
+            col1, col2 = st.columns([1,1], gap="medium")
+
             with col1:
-                st.image(image, caption="📤 Imagen Original", use_column_width=True)
-            
+                st.markdown("<div style='width: 100%; overflow: hidden; text-align: center; margin-bottom: 0;'>", unsafe_allow_html=True)
+                st.image(image, caption="📤 Imagen Original", use_container_width=True)
+                st.markdown("</div>", unsafe_allow_html=True)
+
             with col2:
-                with st.spinner("🔄 Procesando..."):
-                    mask, duration = segment_image(image, processor, model, device)
-                
-                st.markdown(f"**⏱️ Tiempo de inferencia:** `{duration:.3f} segundos`")
-                mostrar_segmentacion_con_leyenda(image, mask, classes, st)
-            
+                st.markdown("<div style='width: 100%; overflow: hidden; text-align: center; margin-bottom: 0;'>", unsafe_allow_html=True)
+                mostrar_segmentacion_con_leyenda(mask_resized_image, mask, classes, st)
+                st.markdown("</div>", unsafe_allow_html=True)
+
+            # Cuadro con clases detectadas horizontal y centrado debajo
+            detected_idx = np.unique(mask)
+            class_list = [classes[i] for i in detected_idx]
+            st.markdown(
+                f"""
+                <div style="background: rgba(102, 126, 234, 0.1); padding: 1rem; border-radius: 10px; margin: 1rem 0; text-align: center;">
+                    <strong>🏷️ Clases detectadas:</strong> {", ".join(class_list)}
+                </div>
+                """, 
+                unsafe_allow_html=True
+            )
+
             st.markdown('</div></div>', unsafe_allow_html=True)
+
 
         elif file.type.endswith("mp4"):
             # Procesamiento de video

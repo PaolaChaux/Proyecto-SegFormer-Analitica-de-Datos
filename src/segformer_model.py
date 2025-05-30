@@ -70,7 +70,3 @@ def mostrar_segmentacion_con_leyenda(image, mask, classes, st):
     cbar.ax.set_yticklabels(clases_detectadas)
     plt.tight_layout()
     st.pyplot(fig)
-
-    st.markdown("### Clases detectadas en la imagen:")
-    for c in clases_detectadas:
-        st.markdown(f"- {c}")
