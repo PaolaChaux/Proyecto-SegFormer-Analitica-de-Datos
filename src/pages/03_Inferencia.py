@@ -135,17 +135,10 @@ if file:
     mask_resized_image = image.resize((new_width, fixed_height))
 
     # Columnas para las imágenes
-    col1, col2 = st.columns([1,1], gap="medium")
-
-    with col1:
-        st.markdown("<div style='width: 100%; overflow: hidden; text-align: center; margin-bottom: 0;'>", unsafe_allow_html=True)
-        st.image(image, caption="📤 Imagen Original", use_container_width=True)
-        st.markdown("</div>", unsafe_allow_html=True)
-
-    with col2:
-        st.markdown("<div style='width: 100%; overflow: hidden; text-align: center; margin-bottom: 0;'>", unsafe_allow_html=True)
-        mostrar_segmentacion_con_leyenda(mask_resized_image, mask, classes, st)
-        st.markdown("</div>", unsafe_allow_html=True)
+    
+    st.markdown("<div style='width: 100%; overflow: hidden; text-align: center; margin-bottom: 0;'>", unsafe_allow_html=True)
+    mostrar_segmentacion_con_leyenda(mask_resized_image, mask, classes, st)
+    st.markdown("</div>", unsafe_allow_html=True)
 
     # Cuadro con clases detectadas horizontal y centrado debajo
     detected_idx = np.unique(mask)
